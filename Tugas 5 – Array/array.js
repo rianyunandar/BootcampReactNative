@@ -66,7 +66,6 @@ console.log("jawaban 3")
 
 function sum(startNum, finishNum, step) {
     var resultSum = [];
-    var stepp =1;
     if (startNum === undefined) {
         return 0;
       } 
@@ -89,9 +88,138 @@ function sum(startNum, finishNum, step) {
         return resultSum.reduce ((a, b) => a + b, 0);
 }
 
+
 console.log(sum(1,10)) // 55
 console.log(sum(5, 50, 2)) // 621
 console.log(sum(15,10)) // 75
 console.log(sum(20, 10, 2)) // 90
 console.log(sum(1)) // 1
 console.log(sum()) // 0 
+
+
+
+console.log("jawaban 4")
+
+var input = [
+    ["0001", "Roman Alamsyah", "Bandar Lampung", "21/05/1989", "Membaca"],
+    ["0002", "Dika Sembiring", "Medan", "10/10/1992", "Bermain Gitar"],
+    ["0003", "Winona", "Ambon", "25/12/1965", "Memasak"],
+    ["0004", "Bintang Senjaya", "Martapura", "6/4/1970", "Berkebun"]
+] 
+
+
+function dataHandling(arr) {
+    for (var i = 0; i < arr.length; i++) {
+        console.log(" ");
+        console.log("Nomor ID : " + arr[i][0]);
+        console.log("Nama Lengkap : " + arr[i][1]);
+        console.log("TTL: " + arr[i][2] + ' ' + arr[i][3]);
+        console.log("Hobi: " + arr[i][4]);
+        
+    }
+    return " ";
+}
+
+console.log(dataHandling(input));
+
+//SOAL 5
+console.log("jawaban 5")
+
+function balikKata(text) {
+    var textAsli = text;
+    var textBalik = '';
+    for (var i = text.length - 1; i >= 0; i--) {
+        textBalik = textBalik + textAsli[i];
+    }
+    return textBalik;
+}
+
+console.log(balikKata("Kasur Rusak"));
+console.log(balikKata("SanberCode"));
+console.log(balikKata("Haji Ijah"));
+console.log(balikKata("racecar"));
+console.log(balikKata("I am Sanbers"));
+
+//SOAL 6
+console.log("jawaban 6")
+
+var input = ["0001", "Roman Alamsyah ", "Bandar Lampung", "21/05/1989", "Membaca"];
+
+function dataHandling2(arr) {
+    console.log("OUTPUT ke-1")
+    arr.splice(1, 4, "Roman Alamsyah Elsharawy", "Provinsi Bandar Lampung", "21/05/1989", "Pria", "SMA Internasional Metro");
+    console.log(arr);
+
+    console.log("OUTPUT ke-2")
+    var slipted = arr[3].split("/");
+    switch(slipted[1]) {
+        case '01': {
+            console.log('Januari');
+            break;
+        }
+        case '02': {
+            console.log('Februari');
+            break;
+        }
+        case '03': {
+            console.log('Maret');
+            break;
+        }
+        case '04': {
+            console.log('April');
+            break;
+        }
+        case '05': {
+            console.log('Mei');
+            break;
+        }
+        case '06': {
+            console.log('Juni');
+            break;
+        }
+        case '07': {
+            console.log('Juli');
+            break;
+        }
+        case '08': {
+            console.log('Agustus');
+            break;
+        }
+        case '09': {
+            console.log('September');
+            break;
+        }
+        case '10': {
+            console.log('Oktober');
+            break;
+        }
+        case '11': {
+            console.log('November');
+            break;
+        }
+        case '12': {
+            console.log('Desember');
+            break;
+        }
+        default: {
+            console.log('Bulan salah')
+        }
+    }
+    
+    console.log("OUTPUT ke-3")
+    var sorted = slipted.sort(function(a, b) {
+        return b - a;
+    });
+    console.log(sorted);
+
+    console.log("OUTPUT ke-4")
+    var slipted2 = arr[3].split("/");
+    var combined = slipted2.join("-");
+    console.log(combined);
+
+    console.log("OUTPUT ke-5")
+    var nama = arr[1].slice(0, 14);
+    console.log(nama);
+}
+
+dataHandling2(input);
