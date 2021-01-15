@@ -61,9 +61,32 @@ console.log(rangeWithStep(5, 2, 1)) // [5, 4, 3, 2]
 console.log(rangeWithStep(29, 2, 4)) // [29, 25, 21, 17, 13, 9, 5] 
 
 
-function sum(startNum, finishNum, step) {
-    var hasil = [];
 
+console.log("jawaban 3")
+
+function sum(startNum, finishNum, step) {
+    var resultSum = [];
+    var stepp =1;
+    if (startNum === undefined) {
+        return 0;
+      } 
+      else if (finishNum === undefined) {
+        return startNum;
+      } 
+      step = (arguments[2] || 1);
+
+      if (startNum < finishNum) {
+        for ( y = startNum; y <= finishNum; y+= step) {
+            resultSum.push(y);
+        }
+    }
+    else if (startNum>finishNum) {
+        for ( y = startNum; y >= finishNum; y-= step) {
+            resultSum.push(y);
+        }
+    }
+
+        return resultSum.reduce ((a, b) => a + b, 0);
 }
 
 console.log(sum(1,10)) // 55
