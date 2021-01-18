@@ -115,14 +115,40 @@ console.log("-------------------------------------------------------------------
 console.log("soal 3")
 
 
-function naikAngkot(arrPenumpang) {
+function naikAngkot(arr) {
     rute = ['A', 'B', 'C', 'D', 'E', 'F'];
-    //your code here
-  }
+    
+    var angkot = [{}, {}];
+    var asal = '';
+    var tujuan = '';
+
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < arr[i].length; j++) {
+                angkot[i].penumpang = arr[i][j-2];
+                angkot[i].asal = arr[i][j-1];
+                angkot[i].tujuan = arr[i][j];
+
+                asal =angkot[i].asal
+                tujuan = angkot[i].tujuan
+
+                var jarak = 0;
+                for (var k = 0; k < rute.length; k++) {
+                    if (rute[k] === asal) {
+                        for (var l = k+1; l < rute.length; l++) {
+                            jarak++;
+                            if (rute[l] === tujuan) {
+                                var bayar = jarak * 2000;
+                                angkot[i].bayar = bayar;
+                            }
+                        }
+                    }
+                }
+            
+        }
+    }
+    return angkot;
+}
+
    
-  //TEST CASE
-  console.log(naikAngkot([['Dimitri', 'B', 'F'], ['Icha', 'A', 'B']]));
-  // [ { penumpang: 'Dimitri', naikDari: 'B', tujuan: 'F', bayar: 8000 },
-  //   { penumpang: 'Icha', naikDari: 'A', tujuan: 'B', bayar: 2000 } ]
-   
-  console.log(naikAngkot([])); //[]
+console.log(naikAngkot([['Dimitri', 'B', 'F'], ['Icha', 'A', 'B']]));
+console.log(naikAngkot([]));
