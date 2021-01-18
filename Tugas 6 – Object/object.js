@@ -87,7 +87,7 @@ function shoppingTime(memberId, money) {
             money-=175000
         }
         else if (money >= 50000){
-            ItemPurcashed.push(itemBelanja[3])
+            ItemPurcashed.push(itemBelanja[4])
             money-=50000
         }
         belanjaTross.listPurchased=ItemPurcashed
