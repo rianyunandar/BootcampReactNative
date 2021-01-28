@@ -8,9 +8,9 @@ export default function App() {
   return (
             //  <YoutubeUI />
             <>
-            <LoginPage />
+            {/* <LoginPage /> */}
             <SignUpPage />
-            <AboutPage />
+            {/* <AboutPage /> */}
             </>
   );
 }
