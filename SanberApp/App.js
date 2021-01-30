@@ -6,7 +6,7 @@ import AboutPage from './tugas/tugas13/AboutPage';
 import Main from './tugas/tugas14/components/Main';
 import Note from './tugas/tugas14/components/Note';
 import NoteApps from './tugas/tugas14/App';
-import Navi from './tugas/TugasNavigation/index';
+import Navi from './tugas/tugas15/TugasNavigation/index';
 import Index from './tugas/tugas15/index';
 
 export default function App() {
