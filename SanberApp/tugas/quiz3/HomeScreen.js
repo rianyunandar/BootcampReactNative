@@ -15,6 +15,7 @@ import{Card} from 'react-native-elements';
 import data from './data.json';
 
 const DEVICE = Dimensions.get('window');
+
 const numberFormat = (value) =>
   new Intl.NumberFormat('locales', {
     style: 'currency',
