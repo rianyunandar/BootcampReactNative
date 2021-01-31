@@ -10,6 +10,7 @@ import {
   TextInput,
   Button,
 } from 'react-native';
+import{Card} from 'react-native-elements';
 
 import data from './data.json';
 
@@ -22,16 +23,16 @@ const numberFormat = (value) =>
   }).format(value);
 export default class HomeScreen extends React.Component {
   constructor(props) {
-    
+    var getName = props.route.params.key.Name;
+
     super(props);
     this.state = {
       searchText: '',
       totalPrice: 0,
-      name:this.props.route.params.userName,
+      name: getName,
       data: data.produk,
     };
   }
-
   currencyFormat(num) {
     return 'Rp ' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }

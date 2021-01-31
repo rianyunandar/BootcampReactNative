@@ -13,22 +13,20 @@ export default class LoginScreen extends React.Component {
 
   loginHandler() {
     console.log(this.state.userName, ' ', this.state.password)
-    //? #Soal No. 1 (10 poin)
-    //? Buatlah sebuah fungsi untuk berpindah halaman hanya jika password yang di input bernilai '12345678' 
-    //? dan selain itu, maka akan mengubah state isError menjadi true dan tidak dapat berpindah halaman.
+    var Name = this.state.password;
+    var Pass = this.state.userName;
 
-    //? #SoalTambahan (+ 5 poin): kirimkan params dengan key => userName dan value => this.state.userName ke halaman Home, 
-    //? dan tampilkan userName tersebut di halaman Home setelah teks "Hai,"
+    const user = {
+      username: Name,
+      password: Pass,
+    };
 
-    // Kode di sini 
-    // clue gunakan if dan else
-
-      if(this.state.password=='' || this.state.userName==''){
+      if(Name=='' || Pass==''){
       alert(`please input all form`);}
 
 
-    else if (this.state.password === '12345678') {
-      return this.props.navigation.push('Home', {userName: this.state.userName});
+    else if (Pass == '12345678') {
+      return this.props.navigation.push('Home', {key: {Name}});
     } 
     else {
       this.setState({isError: true});
@@ -65,7 +63,7 @@ export default class LoginScreen extends React.Component {
               <Text style={styles.labelText}>Password</Text>
               <TextInput
                 style={styles.textInput}
-                placeholder='Masukkan Password'
+                placeholder='Input Password'
                 onChangeText={password => this.setState({ password })}
                 secureTextEntry={true}
               />
