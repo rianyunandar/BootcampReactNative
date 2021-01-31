@@ -15,7 +15,6 @@ import{Card} from 'react-native-elements';
 import data from './data.json';
 
 const DEVICE = Dimensions.get('window');
-
 const numberFormat = (value) =>
   new Intl.NumberFormat('locales', {
     style: 'currency',
@@ -24,24 +23,18 @@ const numberFormat = (value) =>
 export default class HomeScreen extends React.Component {
   constructor(props) {
     var getName = props.route.params.key.Name;
-
     super(props);
     this.state = {
+      userName: getName,
+      data: data.produk,
       searchText: '',
       totalPrice: 0,
-      name: getName,
-      data: data.produk,
     };
   }
+
   currencyFormat(num) {
     return 'Rp ' + num.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
   }
-
-  updatePrice(price) {
-    price = this.state.totalPrice + parseInt(price);
-    this.setState({ totalPrice: price });
-  }
-
 
   updatePrice() {
     alert('oke');
@@ -52,7 +45,7 @@ export default class HomeScreen extends React.Component {
     console.log(this.state);
   }
 
-  SavePrice(price, stok) {
+  SavePrice(harga, stok) {
     if (stok <= 0) {
       alert('Out Of Stock')
     } else {
@@ -69,9 +62,9 @@ export default class HomeScreen extends React.Component {
       <View style={styles.container}>
         <View
           style={{
-            minHeight: 60,
-            width: DEVICE.width * 0.75 + 20,
-            marginVertical: 10,
+            minHeight: 50,
+            width: DEVICE.width * 0.88 + 20,
+            marginVertical: 8,
           }}
         >
           <View
@@ -80,20 +73,12 @@ export default class HomeScreen extends React.Component {
             <Text>
               Hai,{'\n'}
               {/* //? #Soal 1 Tambahan, Simpan userName yang dikirim dari halaman Login pada komponen Text di bawah ini */}
-              <Text style={styles.headerText}>Username 
-              {this.props.route.params.userName}
-              </Text>
+                <Text style={styles.headerText}>{this.state.userName}</Text>
             </Text>
 
             {/* //? #Soal Bonus, simpan Total Harga dan state.totalPrice di komponen Text di bawah ini */}
-
-
-
-
-
-            
             <Text style={{ textAlign: 'right' }}>
-              Total Price{'\n'}
+              Total Harga{'\n'}
               <Text style={styles.headerText}>
                 {this.currencyFormat(this.state.totalPrice)}
               </Text>
@@ -106,16 +91,7 @@ export default class HomeScreen extends React.Component {
             onChangeText={(searchText) => this.setState({ searchText })}
           />
         </View>
-
-        {/* 
-        //? #Soal No 2 (15 poin)
-        //? Buatlah 1 komponen FlatList dengan input berasal dari data.json
-        //? dan pada prop renderItem menggunakan komponen ListItem -- ada di bawah --
-        //? dan memiliki 2 kolom, sehingga menampilkan 2 item per baris (horizontal)
-
-        // Lanjutkan di bawah ini!
-        */}
-       <FlatList
+        <FlatList
           data={this.state.data}
           style={styles.container}
           numColumns={2}
@@ -126,7 +102,7 @@ export default class HomeScreen extends React.Component {
                 <Card.Title>{item.nama}</Card.Title>
                 <Card.Divider />
                 <Image
-                  style={styles.tinyLogo}
+                  style={styles.tubnail}
                   source={{
                     uri: `${item.gambaruri}`,
                   }}
@@ -151,6 +127,9 @@ export default class HomeScreen extends React.Component {
           )}
           keyExtractor={(item, index) => index.toString()}
         />
+
+
+       
       </View>
     );
   }
@@ -179,8 +158,8 @@ class ListItem extends React.Component {
         <Text style={styles.itemPrice}>
           {this.currencyFormat(Number(data.harga))}
         </Text>
-        <Text style={styles.itemStock}>Stok: {data.stock-1 }</Text>
-        <Button title="Buy" color="blue" onPress={this.props.updatePrice} />
+        <Text style={styles.itemStock}>Sisa stok: {data.stock-1 }</Text>
+        <Button title="BELI" color="blue" onPress={this.props.updatePrice} />
       </View>
     );
   }
@@ -189,8 +168,7 @@ class ListItem extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+   
   },
   headerText: {
     fontSize: 18,
@@ -198,6 +176,11 @@ const styles = StyleSheet.create({
   },
 
   //? Lanjutkan styling di sini
+  card: {
+    width: DEVICE.width / 2.3,
+    margin: 12,
+  },
+
   itemContainer: {
     width: DEVICE.width * 0.44,
     alignItems: 'center',
@@ -214,6 +197,11 @@ const styles = StyleSheet.create({
   itemName: {
     fontSize: 20
   },
+  tubnail: {
+    width: 75,
+    height: 50,
+  },
+
   itemPrice: {
     fontSize: 14
   },
