@@ -22,11 +22,17 @@ export default class LoginScreen extends React.Component {
 
     // Kode di sini 
     // clue gunakan if dan else
-    if (this.state.password === '12345678') {
+
+      if(this.state.password=='' || this.state.userName==''){
+      alert(`please input all form`);}
+
+
+    else if (this.state.password === '12345678') {
       return this.props.navigation.push('Home', {userName: this.state.userName});
     } 
     else {
       this.setState({isError: true});
+      alert('Wrong Password!');
     }
 
 

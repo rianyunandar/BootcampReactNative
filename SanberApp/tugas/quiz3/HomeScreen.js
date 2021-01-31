@@ -15,12 +15,20 @@ import data from './data.json';
 
 const DEVICE = Dimensions.get('window');
 
+const numberFormat = (value) =>
+  new Intl.NumberFormat('locales', {
+    style: 'currency',
+    currency: 'IDR'
+  }).format(value);
 export default class HomeScreen extends React.Component {
   constructor(props) {
+    
     super(props);
     this.state = {
       searchText: '',
       totalPrice: 0,
+      name:this.props.route.params.userName,
+      data: data.produk,
     };
   }
 
@@ -33,15 +41,36 @@ export default class HomeScreen extends React.Component {
     this.setState({ totalPrice: price });
   }
 
+
+  updatePrice() {
+    alert('oke');
+    return false;
+    price = this.state.totalPrice + parseInt(price);
+
+    this.setState({ totalPrice: price });
+    console.log(this.state);
+  }
+
+  SavePrice(price, stok) {
+    if (stok <= 0) {
+      alert('Out Of Stock')
+    } else {
+      var price = this.state.totalPrice + parseInt(harga);
+      this.setState({ totalPrice: price });
+
+    }
+
+  }
+
   render() {
     console.log(data);
     return (
       <View style={styles.container}>
         <View
           style={{
-            minHeight: 50,
-            width: DEVICE.width * 0.88 + 20,
-            marginVertical: 8,
+            minHeight: 60,
+            width: DEVICE.width * 0.75 + 20,
+            marginVertical: 10,
           }}
         >
           <View
@@ -50,14 +79,20 @@ export default class HomeScreen extends React.Component {
             <Text>
               Hai,{'\n'}
               {/* //? #Soal 1 Tambahan, Simpan userName yang dikirim dari halaman Login pada komponen Text di bawah ini */}
-              <Text style={styles.headerText}>
-                {/* {this.props.route.params.userName} */}
+              <Text style={styles.headerText}>Username 
+              {this.props.route.params.userName}
               </Text>
             </Text>
 
             {/* //? #Soal Bonus, simpan Total Harga dan state.totalPrice di komponen Text di bawah ini */}
+
+
+
+
+
+            
             <Text style={{ textAlign: 'right' }}>
-              Total Harga{'\n'}
+              Total Price{'\n'}
               <Text style={styles.headerText}>
                 {this.currencyFormat(this.state.totalPrice)}
               </Text>
@@ -79,8 +114,42 @@ export default class HomeScreen extends React.Component {
 
         // Lanjutkan di bawah ini!
         */}
-        {/* clue dapat dilihat di https://snack.expo.io/@kameyin/two-column-flatlist-(method-1) */}
-       
+       <FlatList
+          data={this.state.data}
+          style={styles.container}
+          numColumns={2}
+          contentContainerStyle={styles.list}
+          renderItem={({ item }) => (
+            <View>
+              <Card containerStyle={[styles.card, { height: 280 }]}>
+                <Card.Title>{item.nama}</Card.Title>
+                <Card.Divider />
+                <Image
+                  style={styles.tinyLogo}
+                  source={{
+                    uri: `${item.gambaruri}`,
+                  }}
+                />
+                <Text style={styles.name}>{item.kategori}</Text>
+                <Text style={styles.name}>{item.vendor}</Text>
+                <Text style={styles.itemPrice}>
+                {`${(numberFormat(item.harga))}`}
+                </Text>
+                <Text style={styles.itemStock}>
+                  Sisa stok: {item.stock - 1}
+                </Text>
+                <Button
+                  title="Buy"
+                  color="blue"
+                  onPress={() =>
+                    this.SavePrice(item.harga, item.stock)
+                  }
+                />
+              </Card>
+            </View>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
       </View>
     );
   }
@@ -109,8 +178,8 @@ class ListItem extends React.Component {
         <Text style={styles.itemPrice}>
           {this.currencyFormat(Number(data.harga))}
         </Text>
-        <Text style={styles.itemStock}>Sisa stok: {data.stock-1 }</Text>
-        <Button title="BELI" color="blue" onPress={this.props.updatePrice} />
+        <Text style={styles.itemStock}>Stok: {data.stock-1 }</Text>
+        <Button title="Buy" color="blue" onPress={this.props.updatePrice} />
       </View>
     );
   }
@@ -138,21 +207,28 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   itemImage: {
- 
+    width: DEVICE.width * 0.20,
+    height: DEVICE.width * 0.20
   },
   itemName: {
-    
+    fontSize: 20
   },
   itemPrice: {
-   
+    fontSize: 14
   },
   itemStock: {
-
+    fontSize: 14
   },
   itemButton: {
-
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    borderRadius: DEVICE.width * 0.04,
+    width: DEVICE.width * 0.30,
+    height: DEVICE.width * 0.1
   },
   buttonText: {
-    
+    color: 'black'
   },
 });
